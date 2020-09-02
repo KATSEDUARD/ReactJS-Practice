@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Курс ReactJs Essential</title>
+</head>
+
+<body>
+    <h3 class="center">METALLICA</h3>
+    <div id="content" class="container">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/babel">
+        let METALLICA = [{
+            id: 0,
+            title: "KILL `EM ALL",
+            year: 1983,
+            img: "images/killemall.jpg"
+        },
+        {
+            id: 1,
+            title: "RIDE THE LIGHTNING",
+            year: 1984,
+            img: "images/rtl.jpg"
+        },
+        {
+            id: 2,
+            title: "MASTER OF PUPPETS",
+            year: 1986,
+            img: "images/mop.jpg"
+        },
+        {
+            id: 3,
+            title: "...AND JUSTICE FOR ALL",
+            year: 1988,
+            img: "images/ajfa.jpg"
+        },
+        {
+            id: 4,
+            title: "METALLICA",
+            year: 1991,
+            img: "images/ba.jpg"
+        },
+        {
+            id: 5,
+            title: "LOAD",
+            year: 1996,
+            img: "images/load.jpg"
+        },
+        {
+            id: 6,
+            title: "RELOAD",
+            year: 1997,
+            img: "images/reload.jpg"
+        },
+        {
+            id: 7,
+            title: "GARAGE INC.",
+            year: 1998,
+            img: "images/gi.jpg"
+        },
+        {
+            id: 8,
+            title: "ST. ANGER",
+            year: 2003,
+            img: "images/sta.jpg"
+        },{
+            id: 9,
+            title: "DEATH MAGNETIC",
+            year: 2008,
+            img: "images/dm.jpg"
+        },
+        {
+            id: 10,
+            title: "LULU",
+            year: 2011,
+            img: "images/lulu.jpg"
+        },
+        {
+            id: 11,
+            title: "HARDWIRED... TO SELF-DESTRUCT",
+            year: 2016,
+            img: "images/htsd.jpg"
+        }];
+
+        class Metallica extends React.Component {
+            render() {
+                return (
+                    <div className="col s12 l4">
+                        <div className="card">
+                            <div className="card-image waves-effect waves-block waves-light">
+                                <img className="activator" src={ this.props.img }/>
+                            </div>
+                            <div className="card-content">
+                                <span className="card-title grey-text text-darken-4">{ this.props.title }</span>
+                                <p>{ this.props.year }</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        };
+
+        class MetallicaAlbums extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {displayedAlbums: METALLICA};
+                this.handleSearch = this.handleSearch.bind(this);
+            }
+
+            handleSearch(e) {
+                let searchQuery = e.target.value.toLowerCase();
+                let displayedAlbums = METALLICA.filter(el => {
+                    let searchValue = el.title.toLowerCase();
+                    return searchValue.indexOf(searchQuery) !== -1;
+                });
+
+                this.setState({
+                    displayedAlbums: displayedAlbums
+                });
+            }
+
+            render() { 
+                return (
+                    <div className="row">
+                        <input placeholder="SEEK & DESTROY" id="album" type="text" onChange={this.handleSearch}/>
+                        <div>
+                            {
+                                this.state.displayedAlbums.map(el => {
+                                    return <Metallica key={el.id} title={el.title} year={el.year} img={el.img}/>;
+                                })
+                            }
+                        </div>
+                    </div>
+                );
+            }
+        };
+         
+        ReactDOM.render(
+            <MetallicaAlbums />,
+            document.getElementById("content")
+        );
+    </script>
+
+</body>
+
+</html>
