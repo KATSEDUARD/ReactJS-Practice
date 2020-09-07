@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Курс ReactJs Essential</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" id="article"></div>
+    </div>
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/babel">
+
+        class Article extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {result: 0};
+            }
+
+            calculatePLus() {
+                let result = Number(document.querySelector("#a").value) + Number(document.querySelector("#b").value);
+                this.setState({result : result});
+            }
+
+            calculateMinus() {
+                let result = Number(document.querySelector("#a").value) - Number(document.querySelector("#b").value);
+                this.setState({result : result});
+            }
+
+            calculateMult() {
+                let result = Number(document.querySelector("#a").value) * Number(document.querySelector("#b").value);
+                this.setState({result : result});
+            }
+
+            calculateDiv() {
+                let b = document.querySelector("#b").value;
+                if(Number(b) === 0) {
+                    alert("Dividing by zero!");
+                }
+                else {
+                    let result = Number(document.querySelector("#a").value) / Number(b);
+                    this.setState({result : result});
+                }
+            }
+
+            render() {
+                return (
+                    <div id="wrapper" className="col m12 s12 l6">
+                        <input id="a" type="text" required/>
+                        <br/>
+                        <input id="b" type="text" required/>
+                        <br/>
+                        <button className="btn" onClick={this.calculatePLus.bind(this)}>+</button>
+                        <br/>
+                        <button className="btn" onClick={this.calculateMinus.bind(this)}>-</button>
+                        <br/>
+                        <button className="btn" onClick={this.calculateMult.bind(this)}>*</button>
+                        <br/>
+                        <button className="btn" onClick={this.calculateDiv.bind(this)}>/</button>
+                        <p>Result: {this.state.result}</p>
+                    </div>
+                )
+            }
+        };
+
+        ReactDOM.render(
+            <Article/>,
+            document.querySelector("#article")
+        );
+
+    </script>
+
+</body>
+
+</html>
